@@ -1,6 +1,4 @@
 package com.example.demo;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
@@ -11,7 +9,7 @@ public class Student {
     private String name;
     private String branch;
     private String password;
-    public Student(){
+    public Student(String name, int enrollno, String password){
 
     }
 

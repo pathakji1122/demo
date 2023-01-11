@@ -1,10 +1,14 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+@RequestMapping("student")
 
 @RestController
 public class StudentController {
@@ -29,39 +33,29 @@ public class StudentController {
 
         return "Deleted Successfully";
     }
-
-    @PostMapping("/users/register")
-    public void registerStudent(@Validated @RequestBody Student newStudent) {
-        List<Student> users = studentrepository.findAll();
-        System.out.println("New user: " + newStudent.toString());
-        for (Student user : users) {
-            if (user.equals(newStudent)) {
-                System.out.println("User Already exists!");
-            }
-        }
-        studentrepository.save(newStudent);
-    }
-    @PostMapping("/users/login")
-    public void loginUser(@Validated @RequestBody Student student) {
-        List<Student> users = studentrepository.findAll();
-        for (Student other : users) {
-            if (other.equals(student)) {
-                studentrepository.save(student);
-            }
-
+    @Autowired
+    Service service;
+    @PostMapping(path = "login")
+    public String login(@RequestBody Loginrequest loginRequest){
+        Boolean loggedIn = service.login(loginRequest);
+        if(loggedIn)return "Logged In with email "+ loginRequest.enrollno;
+        else{
+            return "Please check your email and password";
         }
     }
-        @PostMapping("/users/logout")
-        public void logoutUser(@Validated @RequestBody Student student){
-            List<Student> users1 = studentrepository.findAll();
-            for (Student other : users1) {
-                if (other.equals(student)) {
-                    studentrepository.save(student);
-                }
-            }
-
+    @PostMapping(path = "signup")
+    public String signup(@RequestBody Signuprequest signupRequest){
+        Boolean signedUp = service.signup(signupRequest);
+        if(signedUp)return "Created a new user with email "+ signupRequest.enrollno;
+        else{
+            return "User with this email already exists";
         }
     }
+
+
+
+
+}
 
 
 
