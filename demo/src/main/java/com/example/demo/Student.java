@@ -1,4 +1,7 @@
 package com.example.demo;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 @Document(collection = "Student")
@@ -7,15 +10,17 @@ public class Student {
     private int enrollno;
     private String name;
     private String branch;
+    private String password;
     public Student(){
 
     }
 
-    public Student(int enrollno, String name, String branch) {
+    public Student(int enrollno, String name, String branch,String Password) {
 
         this.enrollno = enrollno;
         this.name = name;
         this.branch = branch;
+        this.password=password;
     }
 
     public void setEnrollno(int enrollno) {
@@ -35,6 +40,12 @@ public class Student {
     }
     public String getBranch() {
         return branch;
+    }
+    public String getPassword(){
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }
