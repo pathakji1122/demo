@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface Studentrepository extends MongoRepository<Student, Integer> {
     Optional<Student> findByEnrollno(int enrollno);
-    Boolean existsbyname(String name);
-    Boolean existsbyenrollno(Integer enrollno);
+    Boolean existsByName(String name);
+    Boolean existsByEnrollno(Integer enrollno);
 
 }
