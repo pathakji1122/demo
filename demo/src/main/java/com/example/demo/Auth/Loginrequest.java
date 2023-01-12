@@ -1,8 +1,7 @@
-package com.example.demo;
+package com.example.demo.Auth;
 
 public class Loginrequest {
-    public int enrollno;
-
+    public String email;
     public String password;
 
 }

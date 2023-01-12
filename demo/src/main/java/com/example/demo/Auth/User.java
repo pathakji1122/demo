@@ -1,8 +1,13 @@
 package com.example.demo.Auth;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+@Document(collection = "Student")
 public class User {
     private String name;
+    @Id
     private String email;
+
     private String password;
 
     public User(String name, String email, String password){
@@ -36,3 +41,4 @@ public class User {
     }
 
 }
+
