@@ -1,7 +1,7 @@
 package com.example.demo.Auth;
 
-public class Loginrequest {
+public class SignupRequest {
+    public String name;
     public String email;
     public String password;
-
 }
