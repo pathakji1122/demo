@@ -13,7 +13,7 @@ public class Controller {
     Service service;
 
     @PostMapping(path = "login")
-    public String login(@RequestBody Loginrequest loginRequest){
+    public String login(@RequestBody LoginRequest loginRequest){
         Boolean loggedIn = service.login(loginRequest);
         if(loggedIn)return "Logged In with email "+ loginRequest.email;
         else{
@@ -22,7 +22,7 @@ public class Controller {
     }
 
     @PostMapping(path = "signup")
-    public String signup(@RequestBody Signuprequest signuprequest){
+    public String signup(@RequestBody SignupRequest signuprequest){
         Boolean signedUp = service.signup(signuprequest);
         if(signedUp)return "Created a new user with email "+ signuprequest.email;
         else{

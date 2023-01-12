@@ -2,11 +2,14 @@ package com.example.demo.Auth;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 @Document(collection = "Student")
+
 public class User {
-    private String name;
+
     @Id
     private String email;
+    private String name;
 
     private String password;
 
