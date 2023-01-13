@@ -1,9 +1,17 @@
 package com.example.demo.Auth;
-import java.util.ArrayList;
-    @org.springframework.stereotype.Service
+import com.example.demo.Return.ReturnedRepository;
+import com.example.demo.Return.ReturnedUser;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@org.springframework.stereotype.Service
     public class Service {
-        ArrayList<User> DB = new ArrayList<>();
-        public Boolean login(Loginrequest loginRequest) {
+        @Autowired
+        UserRepository userRepository;
+        @Autowired
+        ReturnedRepository returnedRepository;
+
+
+        public Boolean login(LoginRequest loginRequest) {
             String email = loginRequest.email;
             String password = loginRequest.password;
 
@@ -19,27 +27,28 @@ import java.util.ArrayList;
         }
 
         private User findUserByEmail(String email) {
-            for(User user : DB){
-                if(user.getEmail().equals(email)){
-                    return user;
-                }
-            }
-            return null;
+            User user = userRepository.findOneByEmail(email);
+            return user;
         }
 
-        public Boolean signup(Signuprequest signupRequest) {
-            String email = signupRequest.email;
+        public Boolean signup(SignupRequest signuprequest) {
+            String email = signuprequest.email;
             User user = findUserByEmail(email);
             if(user != null){
                 return false;
             }
 
-            User newUser = new User(signupRequest.name, signupRequest.email, signupRequest.password);
+            User newUser = new User(signuprequest.name, signuprequest.email, signuprequest.password, signuprequest.branch);
+            ReturnedUser returnedUser =new ReturnedUser(signuprequest.email,signuprequest.name,signuprequest.branch);
+            saveUserData(returnedUser);
             saveUser(newUser);
             return true;
         }
 
         private void saveUser(User newUser) {
-            DB.add(newUser);
+            userRepository.save(newUser);
+        }
+        private void saveUserData(ReturnedUser returnedUser){
+            returnedRepository.save(returnedUser);
         }
     }
