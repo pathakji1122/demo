@@ -1,4 +1,6 @@
 package com.example.demo.Auth;
+import com.example.demo.Registration.Register;
+import com.example.demo.Registration.RegisterRepository;
 import com.example.demo.Return.ReturnedRepository;
 import com.example.demo.Return.ReturnedUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
         UserRepository userRepository;
         @Autowired
         ReturnedRepository returnedRepository;
+        @Autowired
+    RegisterRepository registerRepository;
+
 
 
         public Boolean login(LoginRequest loginRequest) {
@@ -40,7 +45,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
             User newUser = new User(signuprequest.name, signuprequest.email, signuprequest.password, signuprequest.branch);
             ReturnedUser returnedUser =new ReturnedUser(signuprequest.email,signuprequest.name,signuprequest.branch);
+            Register register = new Register(signuprequest.name,signuprequest.branch,signuprequest.email);
             saveUserData(returnedUser);
+            registerData(register);
             saveUser(newUser);
             return true;
         }
@@ -49,6 +56,10 @@ import org.springframework.beans.factory.annotation.Autowired;
             userRepository.save(newUser);
         }
         private void saveUserData(ReturnedUser returnedUser){
-            returnedRepository.save(returnedUser);
+        returnedRepository.save(returnedUser);
+         }
+        private void registerData(Register register){
+            registerRepository.save(register);
         }
+
     }

@@ -8,7 +8,7 @@ public class ReturnedService {
     @Autowired
     ReturnedRepository returnedRepository;
 
-          public ReturnedUser getData(String mail){
+          public ReturnedUser getData(String mail) {
               ReturnedUser returnedUser = returnedRepository.findOneByEmail(mail);
               return returnedUser;
           }

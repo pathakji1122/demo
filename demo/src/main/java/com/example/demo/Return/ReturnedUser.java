@@ -5,6 +5,9 @@ import org.springframework.data.annotation.Id;
 
 public class ReturnedUser {
     public ReturnedUser(String email, String name, String branch) {
+        this.name = name;
+        this.email = email;
+        this.branch=branch;
     }
 
     public String getName() {

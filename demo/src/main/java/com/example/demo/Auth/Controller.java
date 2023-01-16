@@ -1,5 +1,8 @@
 package com.example.demo.Auth;
 
+import com.example.demo.Registration.Payment;
+import com.example.demo.Registration.Register;
+import com.example.demo.Registration.RegisterRepository;
 import com.example.demo.Return.ReturnedService;
 import com.example.demo.Return.ReturnedUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,8 @@ public class Controller {
     Service service;
     @Autowired
     ReturnedService returnedService;
+    @Autowired
+    RegisterRepository registerRepository;
 
 
     @PostMapping(path = "login")
@@ -23,7 +28,8 @@ public class Controller {
         Boolean loggedIn = service.login(loginRequest);
         String useremail= loginRequest.email;
         ReturnedUser returnedUser1= returnedService.getData(useremail);
-        if(loggedIn)return returnedUser1;
+
+        if(loggedIn)return returnedUser1 ;
         else{
             return null;
         }
@@ -37,6 +43,45 @@ public class Controller {
             return "User with this email already exists";
         }
     }
+    @PostMapping(path =  "register")
+    public String registerData(@RequestBody Register register){
+        String coursetype=register.courseType;
+        String useremail=register.getEmail();
+        ReturnedUser returnedUser1= returnedService.getData(useremail);
+        if(returnedUser1==null){
+            return "please signup with your email";
+        }
+        if(coursetype.equals("mtech")){
+            return "your fees is 25000";
+        }
+        return "your fees is 50000";
+    }
+    @PostMapping(path = "payment")
+    public String paymentCharge(@RequestBody Payment payment){
+        String coursetype=payment.getCourseType();
+        String mail=payment.getEmail();
+        Register register1=registerRepository.findOneByEmail(mail);
+        if(register1==null){
+            return "please register with your email";
+        }
+        if(coursetype.equals("mtech")) {
+            if (payment.getAmount().equals("25000")) {
+                System.out.println("Registration Successful");
+                return "welcome " + register1.getName();
+            } else {
+                return "please pay required amount";
+            }
+        }
+        else if(coursetype.equals("btech")){
+            if(payment.getAmount().equals("50000")){
+                System.out.println("Registration Successful");
+                return "welcome "+register1.getName();
+            }
+            }
+        return "please enter correct amount";
+    }
 
-}
+    }
+
+
 
