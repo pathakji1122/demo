@@ -7,7 +7,7 @@ public class ReturnedUser {
     public ReturnedUser(String email, String name, String branch) {
         this.name = name;
         this.email = email;
-        this.branch=branch;
+        this.branch = branch;
     }
 
     public String getName() {
@@ -25,6 +25,7 @@ public class ReturnedUser {
     public void setEmail(String email) {
         this.email = email;
     }
+
     @Id
 
     private String email;
@@ -39,9 +40,6 @@ public class ReturnedUser {
     }
 
     private String branch;
-
-
-
 
 
 }
